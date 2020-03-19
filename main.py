@@ -8,6 +8,7 @@ import Pothole            # Feature 3
 import SpeedBreaker       # Feature 3
 import DIASpeedVoilation  # Feature 4
 import Traffic            # Feature 5
+import DIARashDriving     # Feature 6
 
 df= pd.read_csv("Dataset-1.csv") # DataSet Selection
 #with open('Dataset-1.csv') as df:
@@ -28,6 +29,10 @@ Latitude = df[' Latitude']
 Longitude = df[' Longitude']
 ThresholdSpeed = 25          # Threshold value for Speed violation
 
+pos_d = df['Accelerator PedalPosition D(%)'].replace(to_replace="-", value=0);
+pos_e = df['Accelerator PedalPosition E(%)'].replace(to_replace="-", value=0);
+Threshold_Rash_driving=30
+print(pos_d)
 # Feature 1
 print("\nFeature 1 :")       # There is some problem
 #DIAEngineAnalysis.Coolant(CoolantTemperatureC,EngineLoad,TripTime)
@@ -56,3 +61,7 @@ print(SpeedVoilation)
 # Feature 5
 print("\nFeature 5 :")
 Traffic.traffic(VehicleSpeed,Latitude,Longitude)
+
+# Feature 6
+print("\nFeature 6 :")
+DIARashDriving.detect_rash_driving(df, pos_d, pos_e, Threshold_Rash_driving)
